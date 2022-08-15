@@ -4,13 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".StudentDashboard">
 
-    <FrameLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/homeFrameLayout">
-
-    </FrameLayout>
-
+        android:text="Student"
+        android:textSize="34dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
