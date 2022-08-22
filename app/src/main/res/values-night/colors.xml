@@ -6,4 +6,6 @@
     <color name="black">#FFFFFF</color>
     <color name="logoColor_700">#711515</color>
     <color name="titleBar">#fff</color>
+    <color name="calendarBackground">#BCBCBC</color>
+    <color name="calendarHeaderBackground">#AAA3A3</color>
 </resources>

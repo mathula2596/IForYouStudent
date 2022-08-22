@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -31,6 +33,9 @@ public class StudentDashboard extends AppCompatActivity {
     String loginName, loginRole = null;
     private View navHeader;
     public TextView username;
+    private FragmentTransaction fragmentTransaction;
+    private TimetableFragment timetableFragment;
+
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,10 @@ public class StudentDashboard extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Settings is Clicked",
                                 Toast.LENGTH_SHORT).show();
                         break;
+                    case R.id.nav_view_timetable:
+                        timetableFragment = new TimetableFragment();
+                        replaceFragment(timetableFragment);
+                        break;
                     default:
                         return true;
 
@@ -81,5 +90,11 @@ public class StudentDashboard extends AppCompatActivity {
             }
         });
 
+    }
+    public void replaceFragment(Fragment fragment)
+    {
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frame_layout,fragment);
+        fragmentTransaction.commit();
     }
 }
