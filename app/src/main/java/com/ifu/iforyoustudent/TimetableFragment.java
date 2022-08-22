@@ -87,9 +87,7 @@ public class TimetableFragment extends Fragment {
                     Timetable.timetableArrayList.add( new Timetable(calendarDate,cursor.getString(cursor.getColumnIndex("moduleName")), cursor.getString(cursor.getColumnIndex("startTime")), cursor.getString(cursor.getColumnIndex("endTime")),lecturerName,cursor.getString(cursor.getColumnIndex("classType")),cursor.getString(cursor.getColumnIndex("location"))));
 
                 }
-                calMonth = (GregorianCalendar) GregorianCalendar.getInstance();
-                calMonthCopy = (GregorianCalendar) calMonth.clone();
-                timetableAdapter = new TimetableAdapter(getActivity(), calMonth,Timetable.timetableArrayList);
+
 
             } else {
                 Toast.makeText(getActivity(), "No allocated schedule available for you",
@@ -100,11 +98,12 @@ public class TimetableFragment extends Fragment {
                     Toast.LENGTH_SHORT).show();
         }
 
+        calMonth = (GregorianCalendar) GregorianCalendar.getInstance();
+        calMonthCopy = (GregorianCalendar) calMonth.clone();
+        timetableAdapter = new TimetableAdapter(getActivity(), calMonth,Timetable.timetableArrayList);
 
         txtMonth = view.findViewById(R.id.txtMonth);
         txtMonth.setText(DateFormat.format("MMMM yyyy", calMonth));
-
-
         ImageButton previous = view.findViewById(R.id.ib_prev);
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
