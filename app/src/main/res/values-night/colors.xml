@@ -5,4 +5,5 @@
     <color name="gray">#4E4E4E</color>
     <color name="black">#FFFFFF</color>
     <color name="logoColor_700">#711515</color>
+    <color name="titleBar">#fff</color>
 </resources>
