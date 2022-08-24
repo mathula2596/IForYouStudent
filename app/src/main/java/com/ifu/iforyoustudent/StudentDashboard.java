@@ -6,10 +6,19 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.MenuItem;
@@ -19,6 +28,8 @@ import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.concurrent.TimeUnit;
 
 public class StudentDashboard extends AppCompatActivity {
 
@@ -35,6 +46,8 @@ public class StudentDashboard extends AppCompatActivity {
     public TextView username;
     private FragmentTransaction fragmentTransaction;
     private TimetableFragment timetableFragment;
+
+    private WorkRequest notificationWorkRequest;
 
     @SuppressLint("ResourceType")
     @Override
@@ -60,6 +73,19 @@ public class StudentDashboard extends AppCompatActivity {
             username.setText(loginName);
         });
 
+        notificationWorkRequest = new PeriodicWorkRequest.Builder(NotificationWorker.class,
+                15*60*1000,
+                TimeUnit.MILLISECONDS)
+                .build();
+//        notificationWorkRequest = new OneTimeWorkRequest.Builder(NotificationWorker.class)
+//         .build();
+
+        WorkManager
+                .getInstance(this)
+                .enqueue(notificationWorkRequest);
+
+        createNotificationChannel();
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -77,6 +103,7 @@ public class StudentDashboard extends AppCompatActivity {
                     case R.id.nav_home:
                         Toast.makeText(getApplicationContext(), "Settings is Clicked",
                                 Toast.LENGTH_SHORT).show();
+
                         break;
                     case R.id.nav_view_timetable:
                         timetableFragment = new TimetableFragment();
@@ -96,5 +123,23 @@ public class StudentDashboard extends AppCompatActivity {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout,fragment);
         fragmentTransaction.commit();
+    }
+
+    private void createNotificationChannel()
+    {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            CharSequence name = "IForYouReminderChannel";
+            String description = "Channel for reminding the changes";
+
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+            NotificationChannel channel = new NotificationChannel("notifyTimetable",name,
+                    importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }

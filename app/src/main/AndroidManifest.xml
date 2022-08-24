@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ifu.iforyoustudent"
     android:sharedUserId="ifu.ntu.mathula">
-
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <queries>
         <provider android:authorities="com.ifu.contentprovider.provider" />
     </queries>
@@ -30,6 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <receiver android:name=".ReminderBroadcast"/>
+    </application>
 </manifest>
