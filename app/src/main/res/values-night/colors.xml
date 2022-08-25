@@ -8,4 +8,8 @@
     <color name="titleBar">#fff</color>
     <color name="calendarBackground">#BCBCBC</color>
     <color name="calendarHeaderBackground">#AAA3A3</color>
+    <color name="lineColor">#8f8e8e</color>
+    <color name="calItem">#3d3c3c</color>
+
+
 </resources>

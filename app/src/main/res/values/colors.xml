@@ -16,4 +16,8 @@
     <color name="titleBar">#000</color>
     <color name="calendarBackground">#E4DDDD</color>
     <color name="calendarHeaderBackground">#B5B5B5</color>
+    <color name="oldDate">#A9A9A9</color>
+    <color name="calItem">#3d3c3c</color>
+
+    <color name="lineColor">#8f8e8e</color>
 </resources>

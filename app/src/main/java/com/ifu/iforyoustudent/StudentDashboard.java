@@ -50,6 +50,7 @@ public class StudentDashboard extends AppCompatActivity {
     private ResetPasswordFragment resetPasswordFragment;
 
     private WorkRequest notificationWorkRequest;
+    private ProfileFragment profileFragment;
 
     @SuppressLint("ResourceType")
     @Override
@@ -123,6 +124,10 @@ public class StudentDashboard extends AppCompatActivity {
                         replaceFragment(resetPasswordFragment);
                         break;
 
+                    case R.id.nav_profile:
+                        profileFragment = new ProfileFragment();
+                        replaceFragment(profileFragment);
+                        break;
                     default:
                         return true;
 

@@ -34,4 +34,5 @@
     <string name="search">Search</string>
     <string name="oldpassword">Current Password</string>
     <string name="Reset">Reset</string>
+    <string name="update">Update</string>
 </resources>

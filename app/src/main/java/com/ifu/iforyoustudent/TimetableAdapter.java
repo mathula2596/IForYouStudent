@@ -80,7 +80,7 @@ public class TimetableAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = convertView;
         TextView dayView;
-        if (convertView == null) { // if it's not recycled, initialize some
+        if (convertView == null) {
             // attributes
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             v = vi.inflate(R.layout.calendar_item, null);
@@ -138,14 +138,14 @@ public class TimetableAdapter extends BaseAdapter {
         day_string.clear();
         Locale.setDefault(Locale.US);
         pmonth = (GregorianCalendar) month.clone();
-        // month start day. ie; sun, mon, etc
+
         firstDay = month.get(GregorianCalendar.DAY_OF_WEEK);
-        // finding number of weeks in current month.
+
         maxWeeknumber = month.getActualMaximum(GregorianCalendar.WEEK_OF_MONTH);
-        // allocating maximum row number for the gridview.
+
         mnthlength = maxWeeknumber * 7;
-        maxP = getMaxP(); // previous month maximum day 31,30....
-        calMaxP = maxP - (firstDay - 1);// calendar offday starting 24,25 ...
+        maxP = getMaxP();
+        calMaxP = maxP - (firstDay - 1);
         pmonthmaxset = (GregorianCalendar) pmonth.clone();
 
         pmonthmaxset.set(GregorianCalendar.DAY_OF_MONTH, calMaxP + 1);

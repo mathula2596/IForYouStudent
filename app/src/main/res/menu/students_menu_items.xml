@@ -27,41 +27,41 @@
             </group>
         </menu>
     </item>
-    <item android:title="Assignment">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_assignment"
-                    android:icon="@drawable/ic_baseline_laptop_24"
-                    android:title="Assignment" />
-                <item
-                    android:id="@+id/nav_view_assignment"
-                    android:icon="@drawable/ic_baseline_feedback_24"
-                    android:title="Assignment Feedback" />
-            </group>
-        </menu>
-    </item>
-    <item android:title="Performance">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_performance"
-                    android:icon="@drawable/ic_baseline_grade_24"
-                    android:title="Performance" />
-            </group>
-        </menu>
-    </item>
+<!--    <item android:title="Assignment">-->
+<!--        <menu>-->
+<!--            <group android:checkableBehavior="single">-->
+<!--                <item-->
+<!--                    android:id="@+id/nav_assignment"-->
+<!--                    android:icon="@drawable/ic_baseline_laptop_24"-->
+<!--                    android:title="Assignment" />-->
+<!--                <item-->
+<!--                    android:id="@+id/nav_view_assignment"-->
+<!--                    android:icon="@drawable/ic_baseline_feedback_24"-->
+<!--                    android:title="Assignment Feedback" />-->
+<!--            </group>-->
+<!--        </menu>-->
+<!--    </item>-->
+<!--    <item android:title="Performance">-->
+<!--        <menu>-->
+<!--            <group android:checkableBehavior="single">-->
+<!--                <item-->
+<!--                    android:id="@+id/nav_performance"-->
+<!--                    android:icon="@drawable/ic_baseline_grade_24"-->
+<!--                    android:title="Performance" />-->
+<!--            </group>-->
+<!--        </menu>-->
+<!--    </item>-->
 
-    <item android:title="Settings">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_settings"
-                    android:icon="@drawable/ic_baseline_settings_24"
-                    android:title="Settings" />
-            </group>
-        </menu>
-    </item>
+<!--    <item android:title="Settings">-->
+<!--        <menu>-->
+<!--            <group android:checkableBehavior="single">-->
+<!--                <item-->
+<!--                    android:id="@+id/nav_settings"-->
+<!--                    android:icon="@drawable/ic_baseline_settings_24"-->
+<!--                    android:title="Settings" />-->
+<!--            </group>-->
+<!--        </menu>-->
+<!--    </item>-->
 
     <item android:title="Profile">
         <menu>

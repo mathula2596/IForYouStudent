@@ -13,7 +13,7 @@
         android:layout_marginRight="10dp"
         android:paddingLeft="10dp"
         android:text="event on "
-        android:textColor="#696969"
+        android:textColor="@color/black"
         android:textSize="16dp" />
 
     <TextView
@@ -27,7 +27,7 @@
         android:layout_marginRight="10dp"
         android:paddingLeft="10dp"
         android:text="event on "
-        android:textColor="#696969"
+        android:textColor="@color/black"
         android:textSize="16dp" />
     <TextView
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
         android:layout_marginRight="10dp"
         android:layout_centerHorizontal="true"
         android:text="event on "
-        android:textColor="#696969"
+        android:textColor="@color/black"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/module"
         android:textSize="16dp"
@@ -55,7 +55,7 @@
         android:layout_marginRight="10dp"
         android:paddingLeft="10dp"
         android:text="event on "
-        android:textColor="#696969"
+        android:textColor="@color/black"
         android:textSize="16dp" />
     <TextView
         android:layout_width="match_parent"
@@ -65,7 +65,7 @@
         android:layout_marginRight="10dp"
         android:layout_centerHorizontal="true"
         android:text="event on "
-        android:textColor="#696969"
+        android:textColor="@color/black"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/startTime"
         android:textSize="16dp"
@@ -78,7 +78,7 @@
         android:layout_marginRight="10dp"
         android:layout_centerHorizontal="true"
         android:text="event on "
-        android:textColor="#696969"
+        android:textColor="@color/black"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/endTime"
         android:textSize="16dp"
@@ -95,7 +95,7 @@
         android:layout_marginRight="10dp"
         android:paddingLeft="10dp"
         android:text="event on "
-        android:textColor="#696969"
+        android:textColor="@color/black"
         android:textSize="16dp" />
 
     <View
@@ -106,7 +106,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="55dp"
         android:layout_marginRight="20dp"
-        android:background="#8f8e8e"
+        android:background="@color/lineColor"
         android:layout_marginBottom="10dp"/>
     <ImageView
         android:layout_width="match_parent"
@@ -122,7 +122,7 @@
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
         android:visibility="gone"
-        android:background="#393939"
+        android:background="@color/calendarHeaderBackground"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_below="@+id/img_save"
