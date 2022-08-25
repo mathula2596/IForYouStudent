@@ -17,6 +17,16 @@
             </group>
         </menu>
     </item>
+    <item android:title="Attendance">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_attendance"
+                    android:icon="@drawable/ic_baseline_front_hand_24"
+                    android:title="Attendance" />
+            </group>
+        </menu>
+    </item>
     <item android:title="Assignment">
         <menu>
             <group android:checkableBehavior="single">
@@ -38,6 +48,17 @@
                     android:id="@+id/nav_performance"
                     android:icon="@drawable/ic_baseline_grade_24"
                     android:title="Performance" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Settings">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_settings"
+                    android:icon="@drawable/ic_baseline_settings_24"
+                    android:title="Settings" />
             </group>
         </menu>
     </item>

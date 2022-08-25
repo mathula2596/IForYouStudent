@@ -30,4 +30,6 @@
     <string name="email_icon_description">Email Icon</string>
     <string name="send">Send</string>
     <string name="back">Back</string>
+    <string name="moduleId">Module</string>
+    <string name="search">Search</string>
 </resources>

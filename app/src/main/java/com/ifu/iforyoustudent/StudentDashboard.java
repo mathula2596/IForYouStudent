@@ -46,6 +46,7 @@ public class StudentDashboard extends AppCompatActivity {
     public TextView username;
     private FragmentTransaction fragmentTransaction;
     private TimetableFragment timetableFragment;
+    private AttendanceFragment attendanceFragment;
 
     private WorkRequest notificationWorkRequest;
 
@@ -101,14 +102,19 @@ public class StudentDashboard extends AppCompatActivity {
                         finish();
                         break;
                     case R.id.nav_home:
-                        Toast.makeText(getApplicationContext(), "Settings is Clicked",
+                        Toast.makeText(getApplicationContext(), "Home is Clicked",
                                 Toast.LENGTH_SHORT).show();
-
                         break;
                     case R.id.nav_view_timetable:
                         timetableFragment = new TimetableFragment();
                         replaceFragment(timetableFragment);
                         break;
+
+                    case R.id.nav_attendance:
+                        attendanceFragment = new AttendanceFragment();
+                        replaceFragment(attendanceFragment);
+                        break;
+
                     default:
                         return true;
 
@@ -121,7 +127,7 @@ public class StudentDashboard extends AppCompatActivity {
     public void replaceFragment(Fragment fragment)
     {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout,fragment);
+        fragmentTransaction.replace(R.id.frame_layout,fragment).addToBackStack("back");
         fragmentTransaction.commit();
     }
 
