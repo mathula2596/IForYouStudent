@@ -182,7 +182,7 @@ public class NotificationWorker extends Worker {
                         = (differenceInMilliSeconds / (60 * 1000)) % 60;
 
                 Log.d("TAG", "run: "+differenceInMinutes);
-                if(currentTimeinDate.compareTo(checkTimeinDate) >=0 && differenceInMinutes<=2)
+                if(currentTimeinDate.equals(checkTimeinDate) && differenceInMinutes<=2)
                 {
                     if(Integer.parseInt(alertDay) == day) {
                         Intent intent = new Intent(getApplicationContext(),

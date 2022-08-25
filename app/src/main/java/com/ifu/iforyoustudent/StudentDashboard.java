@@ -47,6 +47,7 @@ public class StudentDashboard extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     private TimetableFragment timetableFragment;
     private AttendanceFragment attendanceFragment;
+    private ResetPasswordFragment resetPasswordFragment;
 
     private WorkRequest notificationWorkRequest;
 
@@ -87,6 +88,9 @@ public class StudentDashboard extends AppCompatActivity {
 
         createNotificationChannel();
 
+        timetableFragment = new TimetableFragment();
+        replaceFragment(timetableFragment);
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -102,8 +106,8 @@ public class StudentDashboard extends AppCompatActivity {
                         finish();
                         break;
                     case R.id.nav_home:
-                        Toast.makeText(getApplicationContext(), "Home is Clicked",
-                                Toast.LENGTH_SHORT).show();
+                        timetableFragment = new TimetableFragment();
+                        replaceFragment(timetableFragment);
                         break;
                     case R.id.nav_view_timetable:
                         timetableFragment = new TimetableFragment();
@@ -113,6 +117,10 @@ public class StudentDashboard extends AppCompatActivity {
                     case R.id.nav_attendance:
                         attendanceFragment = new AttendanceFragment();
                         replaceFragment(attendanceFragment);
+                        break;
+                    case R.id.nav_change_password:
+                        resetPasswordFragment = new ResetPasswordFragment();
+                        replaceFragment(resetPasswordFragment);
                         break;
 
                     default:
