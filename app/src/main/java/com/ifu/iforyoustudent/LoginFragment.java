@@ -73,7 +73,9 @@ public class LoginFragment extends Fragment {
         btnLogin = view.findViewById(R.id.btnLogin);
 
         btnLogin.setOnClickListener(view1 -> {
-            if(checkFieldEmpty(txtUsername) && checkFieldEmpty(txtPassword)) {
+            boolean res = checkFieldEmpty(txtUsername);
+            boolean res2 = checkFieldEmpty(txtPassword);
+            if(res && res2) {
                 cursor = getActivity().getContentResolver().query(CONTENT_URI, null, null,
                         new String[]{txtUsername.getEditText().getText().toString(), txtPassword.getEditText().getText().toString()}, null);
 
@@ -92,7 +94,8 @@ public class LoginFragment extends Fragment {
                         }
 
                     } else {
-                        Toast.makeText(getActivity(), "Sorry, You are not allowed to login!",
+                        Toast.makeText(getActivity(), "Sorry, You are not allowed to login or " +
+                                        "please check your account details",
                                 Toast.LENGTH_SHORT).show();
                     }
                 } else {

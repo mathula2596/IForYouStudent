@@ -86,11 +86,8 @@ public class TimetableAdapter extends BaseAdapter {
             v = vi.inflate(R.layout.calendar_item, null);
 
         }
-
-
         dayView = (TextView) v.findViewById(R.id.date);
         String[] separatedTime = day_string.get(position).split("-");
-
 
         gridvalue = separatedTime[2].replaceFirst("^0*", "");
         if ((Integer.parseInt(gridvalue) > 1) && (position < firstDay)) {
@@ -174,8 +171,6 @@ public class TimetableAdapter extends BaseAdapter {
 
         return maxP;
     }
-
-
 
 
     public void setEventView(View v,int pos,TextView txt){

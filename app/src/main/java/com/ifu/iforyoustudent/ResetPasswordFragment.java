@@ -63,7 +63,7 @@ public class ResetPasswordFragment extends Fragment {
         btnReset = view.findViewById(R.id.btnReset);
 
         btnReset.setOnClickListener(v -> {
-            if(isValidPassword(txtCurrentPassword) && isValidPassword(txtPassword) && isValidPassword(txtConfirmPassword))
+            if(checkFieldEmpty(txtCurrentPassword) && isValidPassword(txtPassword) && isValidPassword(txtConfirmPassword))
             {
                 if(txtPassword.getEditText().getText().toString().equals(txtConfirmPassword.getEditText().getText().toString()))
                 {
@@ -99,6 +99,20 @@ public class ResetPasswordFragment extends Fragment {
         return view;
     }
 
+    public boolean checkFieldEmpty(TextInputLayout textField){
+        validField = false;
+        if(!textField.getEditText().getText().toString().isEmpty())
+        {
+            textField.setError(null);
+            validField = true;
+        }
+        else
+        {
+            textField.setError("Please fill the value");
+            validField = false;
+        }
+        return validField;
+    }
 
     public boolean isValidPassword(TextInputLayout textField) {
         validPassword = false;

@@ -2,6 +2,8 @@ package com.ifu.iforyoustudent;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.provider.CalendarContract;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +26,7 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -85,6 +89,38 @@ public class TimetableFragment extends Fragment {
                             "lastname"));
 
                     Timetable.timetableArrayList.add( new Timetable(calendarDate,cursor.getString(cursor.getColumnIndex("moduleName")), cursor.getString(cursor.getColumnIndex("startTime")), cursor.getString(cursor.getColumnIndex("endTime")),lecturerName,cursor.getString(cursor.getColumnIndex("classType")),cursor.getString(cursor.getColumnIndex("location"))));
+
+                    Date currentDate = null,EndDate = null;
+                    SimpleDateFormat dateForamt = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    try {
+                        currentDate = dateForamt.parse(calendarDate+" " + cursor.getString(cursor.getColumnIndex("startTime")));
+                        EndDate =
+                                dateForamt.parse(calendarDate+" " + cursor.getString(cursor.getColumnIndex("endTime")));
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                Calendar cc = Calendar.getInstance();
+                cc.setTime(currentDate);
+
+                    Calendar cc2 = Calendar.getInstance();
+                    cc2.setTime(EndDate);
+
+                    ContentResolver contentResolver = this.getContext().getContentResolver();
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(CalendarContract.Events.TITLE,cursor.getString(cursor.getColumnIndex("moduleName")));
+                    contentValues.put(CalendarContract.Events.DESCRIPTION,
+                            lecturerName);
+                    contentValues.put(CalendarContract.Events.EVENT_LOCATION,
+                            cursor.getString(cursor.getColumnIndex("location")));
+                    contentValues.put(CalendarContract.Events.DTSTART,cc.getTimeInMillis());
+                    contentValues.put(CalendarContract.Events.DTEND,cc.getTimeInMillis());
+                    contentValues.put(CalendarContract.Events.CALENDAR_ID,
+                           1);
+                    contentValues.put(CalendarContract.Events.EVENT_TIMEZONE,
+                            Calendar.getInstance().getTimeZone().getID());
+                     Uri uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI,
+                                    contentValues);
+                    Log.d("TAG1", "onCreateView: "+uri);
 
                 }
 

@@ -71,9 +71,10 @@ public class ForgotPasswordFragment extends Fragment {
                     Toast.makeText(getActivity(), "Sorry, You are not allowed to login!",
                             Toast.LENGTH_SHORT).show();
                 }
+                loginFragment = new LoginFragment();
+                replaceFragment(loginFragment);
             }
-            loginFragment = new LoginFragment();
-            replaceFragment(loginFragment);
+
         });
         return view;
     }
