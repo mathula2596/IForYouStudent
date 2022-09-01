@@ -18,9 +18,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -29,6 +32,11 @@ import android.widget.Toast;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class StudentDashboard extends AppCompatActivity {
@@ -48,9 +56,14 @@ public class StudentDashboard extends AppCompatActivity {
     private TimetableFragment timetableFragment;
     private AttendanceFragment attendanceFragment;
     private ResetPasswordFragment resetPasswordFragment;
-
+    private Cursor cursor;
     private WorkRequest notificationWorkRequest;
     private ProfileFragment profileFragment;
+    private Uri ATTENDANCE_CONTENT_URI = Uri.parse("content://com.ifu.contentprovider" +
+            ".provider/attendancenotification");
+
+    private Uri UPDATE_ATTENDANCE_CONTENT_URI = Uri.parse("content://com.ifu.contentprovider" +
+            ".provider/attendancenotificationupdate");
 
     @SuppressLint("ResourceType")
     @Override
@@ -88,6 +101,74 @@ public class StudentDashboard extends AppCompatActivity {
                 .enqueue(notificationWorkRequest);
 
         createNotificationChannel();
+
+
+////////////////////////
+
+
+
+
+
+
+//        String alertTiming = "14:07", alertDay = "5";
+//        String message = null;
+//
+//
+//        cursor = getApplicationContext().getContentResolver().query(ATTENDANCE_CONTENT_URI, null, null,
+//                new String[]{loginName}, null);
+//
+//        if(cursor != null)
+//        {
+//            if(cursor.getCount() > 0)
+//            {
+//                while (cursor.moveToNext())
+//                {
+//                    message = cursor.getString(cursor.getColumnIndex("message"));
+//                    alertTiming =  cursor.getString(cursor.getColumnIndex(
+//                            "timeAlert"));
+//                    alertDay =  cursor.getString(cursor.getColumnIndex(
+//                            "dayAlert"));
+//                }
+//            }
+//        }
+
+//        if(checkDay(alertDay)) {
+//
+//
+//            if(!checkTime(alertTiming))
+//            {
+//                message = null;
+//            }
+////            cursor = getApplicationContext().getContentResolver().query(UPDATE_ATTENDANCE_CONTENT_URI, null, null,
+////                    new String[]{loginName}, null);
+//
+//        }
+
+        Intent intent = new Intent(getApplicationContext(),
+                AttendanceReminderBroadcast.class);
+
+        PendingIntent pendingIntent =
+                PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+//        intent.putExtra("message",message);
+//        intent.putExtra("user",loginName);
+
+
+        AlarmManager alarmManager =
+                null;
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            alarmManager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
+        }
+
+        long currentTimeInMilliSeconds = System.currentTimeMillis();
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                currentTimeInMilliSeconds,5,pendingIntent);
+
+
+
+
+//////////////////////////////////
+
 
         timetableFragment = new TimetableFragment();
         replaceFragment(timetableFragment);
@@ -161,4 +242,55 @@ public class StudentDashboard extends AppCompatActivity {
             notificationManager.createNotificationChannel(channel);
         }
     }
+//    public boolean checkDate(String date){
+//
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//        String currentDate = format.format(new Date());
+//        try {
+//            Date date1 = format.parse(date);
+//            Date date2 = format.parse(currentDate);
+//            if(date1.equals(date2)){
+//                return true;
+//            }
+//            else {
+//                return false;
+//            }
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return false;
+//    }
+//
+//    public boolean checkDay(String day){
+//
+//        Calendar calendar = Calendar.getInstance();
+//        int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
+//
+//        if(currentDay == Integer.parseInt(day))
+//        {
+//            return true;
+//        }
+//        else
+//        {
+//            return false;
+//        }
+//    }
+//    public boolean checkTime(String time){
+//        SimpleDateFormat format = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
+//        String currentDate = format.format(new Date());
+//        try {
+//            Date time1 = format.parse(time);
+//            Date time2 = format.parse(currentDate);
+//            if(time1.equals(time2)){
+//                return true;
+//            }
+//            else {
+//                return false;
+//            }
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
 }

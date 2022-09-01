@@ -2,13 +2,17 @@ package com.ifu.iforyoustudent;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.provider.CalendarContract;
@@ -33,6 +37,7 @@ import java.util.GregorianCalendar;
 
 public class TimetableFragment extends Fragment {
 
+    private static  String[] PERMISSIONS = null;
     private View view;
     public GregorianCalendar calMonth, calMonthCopy;
     private TimetableAdapter timetableAdapter;
@@ -99,28 +104,38 @@ public class TimetableFragment extends Fragment {
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                Calendar cc = Calendar.getInstance();
-                cc.setTime(currentDate);
+                    PERMISSIONS = new String[]{
+                            Manifest.permission.READ_CALENDAR,
+                            Manifest.permission.WRITE_CALENDAR,
+                    };
+                    if(hasPermission(getActivity(),PERMISSIONS))
+                    {
+                        Calendar cc = Calendar.getInstance();
+                        cc.setTime(currentDate);
 
-                    Calendar cc2 = Calendar.getInstance();
-                    cc2.setTime(EndDate);
+                        Calendar cc2 = Calendar.getInstance();
+                        cc2.setTime(EndDate);
 
-                    ContentResolver contentResolver = this.getContext().getContentResolver();
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put(CalendarContract.Events.TITLE,cursor.getString(cursor.getColumnIndex("moduleName")));
-                    contentValues.put(CalendarContract.Events.DESCRIPTION,
-                            lecturerName);
-                    contentValues.put(CalendarContract.Events.EVENT_LOCATION,
-                            cursor.getString(cursor.getColumnIndex("location")));
-                    contentValues.put(CalendarContract.Events.DTSTART,cc.getTimeInMillis());
-                    contentValues.put(CalendarContract.Events.DTEND,cc.getTimeInMillis());
-                    contentValues.put(CalendarContract.Events.CALENDAR_ID,
-                           1);
-                    contentValues.put(CalendarContract.Events.EVENT_TIMEZONE,
-                            Calendar.getInstance().getTimeZone().getID());
-                     Uri uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI,
-                                    contentValues);
-                    Log.d("TAG1", "onCreateView: "+uri);
+                        ContentResolver contentResolver = this.getContext().getContentResolver();
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(CalendarContract.Events.TITLE,cursor.getString(cursor.getColumnIndex("moduleName")));
+                        contentValues.put(CalendarContract.Events.DESCRIPTION,
+                                lecturerName);
+                        contentValues.put(CalendarContract.Events.EVENT_LOCATION,
+                                cursor.getString(cursor.getColumnIndex("location")));
+                        contentValues.put(CalendarContract.Events.DTSTART,cc.getTimeInMillis());
+                        contentValues.put(CalendarContract.Events.DTEND,cc.getTimeInMillis());
+                        contentValues.put(CalendarContract.Events.CALENDAR_ID,
+                                1);
+                        contentValues.put(CalendarContract.Events.EVENT_TIMEZONE,
+                                Calendar.getInstance().getTimeZone().getID());
+                        Uri uri = contentResolver.insert(CalendarContract.Events.CONTENT_URI,
+                                contentValues);
+                    }
+                    else {
+                        ActivityCompat.requestPermissions(getActivity(),PERMISSIONS,1);
+                    }
+
 
                 }
 
@@ -204,5 +219,20 @@ public class TimetableFragment extends Fragment {
         timetableAdapter.refreshDays();
         timetableAdapter.notifyDataSetChanged();
         txtMonth.setText(android.text.format.DateFormat.format("MMMM yyyy", calMonth));
+    }
+    private boolean hasPermission(Context context, String...PERMISSIONS)
+    {
+        if (context != null && PERMISSIONS != null)
+        {
+            for(String permission: PERMISSIONS)
+            {
+                if(ActivityCompat.checkSelfPermission(context,permission)!= PackageManager.PERMISSION_GRANTED)
+                {
+                    return  false;
+                }
+            }
+
+        }
+        return true;
     }
 }

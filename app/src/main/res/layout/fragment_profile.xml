@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/universityId"
             android:layout_marginTop="10dp"
-            android:enabled="false"
+
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:startIconContentDescription="@string/username_icon_description"
             app:startIconDrawable="@drawable/ic_baseline_call_to_action_24"
@@ -41,6 +41,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
 
                 />
 
@@ -93,7 +97,7 @@
             app:startIconContentDescription="@string/username_icon_description"
             app:startIconDrawable="@drawable/ic_baseline_school_24"
             android:id="@+id/degreeLevel"
-            android:enabled="false"
+
 
             >
 
@@ -101,6 +105,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -113,13 +121,17 @@
             app:startIconContentDescription="@string/username_icon_description"
             app:startIconDrawable="@drawable/ic_baseline_school_24"
             android:id="@+id/course"
-            android:enabled="false"
+
             >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -132,7 +144,7 @@
             app:startIconContentDescription="@string/username_icon_description"
             app:startIconDrawable="@drawable/ic_baseline_numbers_24"
             android:id="@+id/batchNumber"
-            android:enabled="false"
+
 
             >
 
@@ -140,6 +152,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>

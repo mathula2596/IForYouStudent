@@ -12,8 +12,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Switch;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -26,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 
 public class NotificationWorker extends Worker {
@@ -137,83 +134,97 @@ public class NotificationWorker extends Worker {
                             null,
                             returnIdsArray, null);
 
-                    Calendar calendar = Calendar.getInstance();
-                    int day = calendar.get(Calendar.DAY_OF_WEEK);
-
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm",
-                            Locale.ENGLISH);
-
-                    String currentTime = simpleDateFormat.format(new Date());
-
-                    Date currentTimeinDate = null, checkTimeinDate = null ;
-                    String alertTiming = "14:07", alertDay = "5";
-                    String message = null;
-
-
-                    cursor = getApplicationContext().getContentResolver().query(ATTENDANCE_CONTENT_URI, null, null,
-                            new String[]{loginName}, null);
-
-                    if(cursor != null)
-                    {
-                        if(cursor.getCount() > 0)
-                        {
-                            while (cursor.moveToNext())
-                            {
-                                message = cursor.getString(cursor.getColumnIndex("message"));
-                                alertTiming =  cursor.getString(cursor.getColumnIndex(
-                                        "timeAlert"));
-                                alertDay =  cursor.getString(cursor.getColumnIndex(
-                                        "dayAlert"));
-                            }
-                        }
-                    }
-
-
-                    try {
-                        currentTimeinDate = simpleDateFormat.parse(currentTime);
-                        checkTimeinDate = simpleDateFormat.parse(alertTiming);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-
-                    long differenceInMilliSeconds
-                            = Math.abs(currentTimeinDate.getTime() - checkTimeinDate.getTime());
-                    long differenceInMinutes
-                            = (differenceInMilliSeconds / (60 * 1000)) % 60;
-
-                    Log.d("TAG", "run: "+differenceInMinutes);
-
-                        if(Integer.parseInt(alertDay) == day) {
-
-                            if(currentTimeinDate.equals(checkTimeinDate))
-                            {
-                                Intent intent = new Intent(getApplicationContext(),
-                                        AttendanceReminderBroadcast.class);
-                                intent.putExtra("message", message);
-
-                                PendingIntent pendingIntent =
-                                        PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
-
-                                AlarmManager alarmManager =
-                                        null;
-                                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                    alarmManager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
-                                }
-
-                                long currentTimeInMilliSeconds = System.currentTimeMillis();
-
-                                alarmManager.set(AlarmManager.RTC_WAKEUP,
-                                        currentTimeInMilliSeconds, pendingIntent);
-
-                                cursor = getApplicationContext().getContentResolver().query(UPDATE_ATTENDANCE_CONTENT_URI, null, null,
-                                        new String[]{loginName}, null);
-
-                            }
-
-                        }
-
-
+//                    Calendar calendar = Calendar.getInstance();
+//                    int day = calendar.get(Calendar.DAY_OF_WEEK);
+//
+//                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm",
+//                            Locale.ENGLISH);
+//
+//                    String currentTime = simpleDateFormat.format(new Date());
+//
+//                    Date currentTimeinDate = null, checkTimeinDate = null ;
+//                    String alertTiming = "14:07", alertDay = "5";
+//                    String message = null;
+//
+//
+//                    cursor = getApplicationContext().getContentResolver().query(ATTENDANCE_CONTENT_URI, null, null,
+//                            new String[]{loginName}, null);
+//
+//                    if(cursor != null)
+//                    {
+//                        if(cursor.getCount() > 0)
+//                        {
+//                            while (cursor.moveToNext())
+//                            {
+//                                message = cursor.getString(cursor.getColumnIndex("message"));
+//                                alertTiming =  cursor.getString(cursor.getColumnIndex(
+//                                        "timeAlert"));
+//                                alertDay =  cursor.getString(cursor.getColumnIndex(
+//                                        "dayAlert"));
+//                            }
+//                        }
+//                    }
+//
+//
+//                    try {
+//                        currentTimeinDate = simpleDateFormat.parse(currentTime);
+//                        checkTimeinDate = simpleDateFormat.parse(alertTiming);
+//                    } catch (ParseException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//
+////                    long differenceInMilliSeconds
+////                            = Math.abs(currentTimeinDate.getTime() - checkTimeinDate.getTime());
+////                    long differenceInMinutes
+////                            = (differenceInMilliSeconds / (60 * 1000)) % 60;
+//
+////                    Log.d("TAG", "run: "+differenceInMinutes);
+//                        if(Integer.parseInt(alertDay) == day) {
+//
+//                            Calendar calendar1 = Calendar.getInstance();
+//                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                            String strDate = sdf.format(calendar1.getTime());
+//                            Log.d("Date","DATE : " + strDate);
+//                            String da = strDate + " " + alertTiming + ":00".toString();
+//                            Date strDate1 = null;
+//                            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                            try {
+//                                strDate1 = sdf1.parse(da);
+//                            } catch (ParseException e) {
+//                                e.printStackTrace();
+//                            }
+//                            Log.d("Date","DATE : " + strDate1);
+//                            /*if(currentTimeinDate.equals(checkTimeinDate))
+//                            {*/
+//                                Intent intent = new Intent(getApplicationContext(),
+//                                        AttendanceReminderBroadcast.class);
+//                                intent.putExtra("message", message);
+//
+//                                PendingIntent pendingIntent =
+//                                        PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+//
+//                                AlarmManager alarmManager =
+//                                        null;
+//                                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                                    alarmManager = (AlarmManager) getApplicationContext().getSystemService(ALARM_SERVICE);
+//                                }
+//
+//                                long currentTimeInMilliSeconds = System.currentTimeMillis();
+//
+////                                alarmManager.set(AlarmManager.RTC_WAKEUP,
+////                                        currentTimeInMilliSeconds, pendingIntent);
+//                                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+//                                        currentTimeInMilliSeconds,10,pendingIntent);
+//
+//                                cursor = getApplicationContext().getContentResolver().query(UPDATE_ATTENDANCE_CONTENT_URI, null, null,
+//                                        new String[]{loginName}, null);
+//
+//                            //}
+//
+//                        }
+//
+//
                 }
             }
 
